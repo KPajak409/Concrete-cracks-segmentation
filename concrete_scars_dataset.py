@@ -49,14 +49,14 @@ def solve_not_equal_paths(images, masks, folder):
     
 
 class ConcreteScarsDataset(Dataset, ):
-    def __init__(self, transform=None, n_negative=300, n_positive=700):
+    def __init__(self, transform=None, n_negative=300, n_positive=700, skip=0):
         images_paths_negative = glob.glob("./Concrete/Negative/Images/*.jpg",recursive=False)
         masks_paths_negative = glob.glob("./Concrete/Negative/Masks/*.jpg",recursive=False)
         images_paths_positive = glob.glob("./Concrete/Positive/Images/*.jpg",recursive=False)
         masks_paths_positive = glob.glob("./Concrete/Positive/Masks/*.jpg",recursive=False)
         self.transform = transform   
-        self.images_paths = images_paths_negative[:n_negative] + images_paths_positive[:n_positive]
-        self.masks_paths = masks_paths_negative[:n_negative] + masks_paths_positive[:n_positive]
+        self.images_paths = images_paths_negative[skip:n_negative+skip] + images_paths_positive[skip:n_positive+skip]
+        self.masks_paths = masks_paths_negative[skip:n_negative+skip] + masks_paths_positive[skip:n_positive+skip]
 
     def __getitem__(self, index):       
         image = Image.open(self.images_paths[index])
