@@ -5,9 +5,9 @@ import torchvision
 from torchvision.transforms.functional import convert_image_dtype
 import matplotlib.pyplot as plt
 
-class Model(nn.Module):
+class ConcreteScarsModel(nn.Module):
     def __init__(self):
-        super(Model, self).__init__()              
+        super(ConcreteScarsModel, self).__init__()              
         self.conv1 = nn.Conv2d(3,3, 5, padding=2)
         self.enc1 = encoder(3, 64)
         self.enc2 = encoder(64, 128)
@@ -67,7 +67,7 @@ class decoder(nn.Module):
 
 if __name__ == '__main__':
     input = output = 1
-    model = Model()
+    model = ConcreteScarsModel()
     model.info()
 
     # test 

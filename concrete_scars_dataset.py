@@ -1,16 +1,16 @@
 #%%
-import glob, os
+import glob, os, math
 import torch
-from PIL import Image
-from torchvision import datasets, transforms
+import torchvision
+from PIL import Image, ImageOps
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms.functional import convert_image_dtype
 import numpy as np
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 #If you downloaded this dataset from kaggle https://www.kaggle.com/datasets/yatata1/crack-dataset status as of July 3, 2023
 #At first you should fix some things, function below will do it for you
+#3. Remove 3-channel masks
 def fix_dataset():
     #1. Change folder name at path ./Concrete/Negative/Mask to Masks
     mask_path = './Concrete/Negative/Mask'
@@ -18,7 +18,7 @@ def fix_dataset():
         os.rename(mask_path, mask_path + 's')
         print('Path modified')
 
-    #We are ignoring *.png files because of their different size
+    #We are ignoring *.png files because of their different size, it could lead to reach out of memory on gpu
     image_paths_negative = glob.glob("./Concrete/Negative/Images/*.jpg",recursive=False)
     mask_paths_negative = glob.glob("./Concrete/Negative/Masks/*.jpg",recursive=False)
     image_paths_positive = glob.glob("./Concrete/Positive/Images/*.jpg",recursive=False)
@@ -49,34 +49,37 @@ def solve_not_equal_paths(images, masks, folder):
     
 
 class ConcreteScarsDataset(Dataset, ):
-    def __init__(self, transform=None):
-        self.transform = transform
+    def __init__(self, transform=None, n_negative=300, n_positive=700):
         images_paths_negative = glob.glob("./Concrete/Negative/Images/*.jpg",recursive=False)
         masks_paths_negative = glob.glob("./Concrete/Negative/Masks/*.jpg",recursive=False)
         images_paths_positive = glob.glob("./Concrete/Positive/Images/*.jpg",recursive=False)
         masks_paths_positive = glob.glob("./Concrete/Positive/Masks/*.jpg",recursive=False)
-        self.images_paths = images_paths_negative[:900] + images_paths_positive[:1500]
-        self.masks_paths = masks_paths_negative[:900] + masks_paths_positive[:1500]
-        self.n_samples = len(self.images_paths) + len(self.masks_paths)
-
+        self.transform = transform   
+        self.images_paths = images_paths_negative[:n_negative] + images_paths_positive[:n_positive]
+        self.masks_paths = masks_paths_negative[:n_negative] + masks_paths_positive[:n_positive]
 
     def __getitem__(self, index):       
         image = Image.open(self.images_paths[index])
         mask = Image.open(self.masks_paths[index])
+        
         if self.transform:
             image = self.transform(image)
             mask = self.transform(mask)
+            #In the masks folder there is 3-channel mask, so for now transform is necessary
+            if(mask.shape[0] != 1):
+                transform = torchvision.transforms.Grayscale()
+                mask = transform(mask)
         return image, mask
     
     def __len__(self):
-        return self.n_samples
+        return len(self.images_paths)
 
 #%% 
 if __name__ == '__main__':
     fix_dataset()
-    composed = transforms.Compose([transforms.ToTensor()])
+    composed = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     dataset = ConcreteScarsDataset(transform=composed)
-    dataloader = DataLoader(dataset=dataset, batch_size=32, num_workers=1)
+    dataloader = DataLoader(dataset=dataset, batch_size=10, num_workers=1)
 
     dataiter = iter(dataloader)
     image, mask = next(dataiter)
