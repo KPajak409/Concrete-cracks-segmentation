@@ -55,7 +55,7 @@ def solve_not_equal_paths(images, masks, folder):
 
 class ConcreteScarsDataset(Dataset, ):
     def __init__(self, n_negative=0, n_positive=0, transform=None, skip=0):
-        images_paths_negative = glob.glob("\\/Concrete\\Negative\\Images\\*.jpg",recursive=False)
+        images_paths_negative = glob.glob(".\\Concrete\\Negative\\Images\\*.jpg",recursive=False)
         masks_paths_negative = glob.glob(".\\Concrete\\Negative\\Masks\\*.jpg",recursive=False)
         images_paths_positive = glob.glob(".\\Concrete\\Positive\\Images\\*.jpg",recursive=False)
         masks_paths_positive = glob.glob(".\\Concrete\\Positive\\Masks\\*.jpg",recursive=False)
