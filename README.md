@@ -1,7 +1,7 @@
 # Concrete-cracks-segmentation
 Safety grants important role in buildings and roads made of concrete. Cracks in concrete can lead to dangerous situations and may put human lives in danger. 
 Premature detection of this cracks can prevent such situations. The Concrete Cracks Segmentation project aims to develop a model that can accurately identify and segment cracks in concrete images.
-This project utilizes computer vision techniques and deep learning algorithms to automate the process of crack detection, enabling efficient assessment and maintenance of concrete structures.
+This project utilizes computer vision techniques and deep learning algorithms to simplify the process of crack detection, enabling efficient assessment and maintenance of concrete structures.
 
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> 
@@ -21,18 +21,18 @@ This project utilizes computer vision techniques and deep learning algorithms to
 </p>
 
 ## Features 
- - **Crack Segmentation:** The system can accurately segment cracks in concrete images.</br>
- - **Preprocessing:** The project includes preprocessing steps to enhance image quality and remove corrupted images, which improve the accuracy of crack detection.</br>
- - **Deep Learning Model:** It utilizes a deep learning model trained on a large dataset of annotated concrete images to perform crack segmentation.</br>
+ - **Pre-processing:** The project includes pre-processing steps to enhance overall dataset quality and remove corrupted images, which improve the accuracy of crack detection.<br>
+ - **Deep Learning Model:** It utilizes a deep learning model trained on a large dataset of annotated concrete images.</br>
+ - **Crack Segmentation:** The system can precisely segment cracks in concrete images.</br>
  
 ## Downloading data
 I'm using dataset from kaggle, folder "Concrete"
 <a href="https://www.kaggle.com/datasets/yatata1/crack-dataset">https://www.kaggle.com/datasets/yatata1/crack-dataset</a>.
 
 Before using this dataset in our model you have to perform some steps:
-1. Change folder name at path ./Concrete/Negative/Mask to Masks
+1. Rename the folder at path ./Concrete/Negative/Mask to Masks
 1. Check if every image has corrensponding mask
-1. Remove 3-channel masks #ToDo
+1. Convert 3-channel masks to 1-channel
 
 In order to do that you can use function called ```fix_dataset()``` in ```concrete_scars_dataset.py``` file
 If you skip these steps it can lead to errors during training process. 
@@ -45,14 +45,22 @@ The code is integrated with comet. All results of my experiments you can find un
 # Next steps
 This project still requires a lot of work to be done in order to make it usable.
 
+## Accuracy measurement
+Instead off error value from MSE we should measure accuracy in different (better) way. This metrics are going to be implemented
+- Intersection-Over-Union (IoU, Jaccard Index)
+- Dice Coefficient (F1 Score)
+
 ## Clean dataset
-As author of dataset claims, some of the datasets present some isolated cases of incorrect image-mask pairs or low precision cases, which can significantly affect the quality and accuracy of the model.
+As author of dataset claims, some of the datasets represent single cases of incorrect image-mask pairs or low precision cases, which can significantly affect the quality and accuracy of the model.
 These issues have to be eliminated or taken with extra care by manually optimizing them when necessary.
 
 ## Improve the model architecture
-We will test different common known architectures for our task like ENet or U-net
+We will test different common known architectures for our task like ENet or U-net.
 
-## License
+## Detection
+After finished algorithm for segmentation I'm going to build second model to detect if crack is on image.
+
+# License
 
 <a href="https://en.wikipedia.org/wiki/MIT_License">MIT license</a>
 
