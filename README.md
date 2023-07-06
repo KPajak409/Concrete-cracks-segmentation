@@ -34,7 +34,7 @@ Before using this dataset in our model you have to perform some steps:
 1. Check if every image has corrensponding mask
 1. Convert 3-channel masks to 1-channel
 
-In order to do that you can use function called ```fix_dataset()``` in ```concrete_scars_dataset.py``` file
+In order to do that you can use function called ```fix_dataset()``` in ```concrete_cracks_dataset.py``` file
 If you skip these steps it can lead to errors during training process. 
 
 # Experiments results

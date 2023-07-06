@@ -53,7 +53,7 @@ def solve_not_equal_paths(images, masks, folder):
                os.remove(mask_path)
     
 
-class ConcreteScarsDataset(Dataset, ):
+class ConcreteCracksDataset(Dataset, ):
     def __init__(self, n_negative=0, n_positive=0, transform=None, skip=0):
         images_paths_negative = glob.glob(".\\Concrete\\Negative\\Images\\*.jpg",recursive=False)
         masks_paths_negative = glob.glob(".\\Concrete\\Negative\\Masks\\*.jpg",recursive=False)
@@ -98,5 +98,5 @@ class ConcreteScarsDataset(Dataset, ):
         return len(self.images_paths)
 #%% 
 if __name__ == '__main__':
-    dataset = ConcreteScarsDataset(10000,10000, skip=0)
+    dataset = ConcreteCracksDataset(10000,10000, skip=0)
     fix_dataset(convert=True)
