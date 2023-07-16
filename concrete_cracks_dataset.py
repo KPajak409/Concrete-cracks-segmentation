@@ -60,10 +60,8 @@ class ConcreteCracksDataset(Dataset, ):
         images_paths_positive = glob.glob(".\\Concrete\\Positive\\Images\\*.jpg",recursive=False)
         masks_paths_positive = glob.glob(".\\Concrete\\Positive\\Masks\\*.jpg",recursive=False)
 
-        if n_negative == 0:
-            self.n_negative = len(images_paths_negative)
-            self.skip = 0
-        elif n_negative + skip > len(images_paths_negative) and skip != 0:
+
+        if n_negative + skip > len(images_paths_negative) and skip != 0:
             self.n_negative = n_negative
             self.skip = 0
             print('Skip value to big, will be 0 N')
@@ -71,10 +69,8 @@ class ConcreteCracksDataset(Dataset, ):
             self.n_negative = n_negative
             self.skip = skip
 
-        if n_positive == 0:
-            self.n_positive = len(images_paths_positive)
-            self.skip = 0
-        elif n_positive + skip > len(images_paths_positive) and skip != 0:
+
+        if n_positive + skip > len(images_paths_positive) and skip != 0:
             self.n_positive = n_positive
             self.skip = 0
             print('Skip value to big, will be 0 P')
