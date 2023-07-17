@@ -1,6 +1,6 @@
 # Concrete-cracks-segmentation
-Safety grants important role in buildings and roads made of concrete. Cracks in concrete can lead to dangerous situations and may put human lives in danger. 
-Premature detection of this cracks can prevent such situations. The Concrete Cracks Segmentation project aims to develop a model that can accurately identify and segment cracks in concrete images.
+Safety grants important role in structures and roads made of concrete. Cracks in concrete can lead to dangerous situations and may put human lives in danger. 
+Premature detection of this cracks can prevent such situations. Building Inspection is done for the evaluation of rigidity and tensile strength of the building. Crack detection plays a main role in the building inspection, finding the cracks and determining the building health. The Concrete Cracks Segmentation project aims to develop a model that can precisely identify and segment cracks in concrete images.
 This project utilizes computer vision techniques and deep learning algorithms to simplify the process of crack detection, enabling efficient assessment and maintenance of concrete structures.
 
 <h3 align="left">Languages and Tools:</h3>
@@ -23,6 +23,7 @@ This project utilizes computer vision techniques and deep learning algorithms to
 ## Features 
  - **Pre-processing:** The project includes pre-processing steps to enhance overall dataset quality and remove corrupted images, which improve the accuracy of crack detection.<br>
  - **Deep Learning Model:** It utilizes a deep learning model trained on a large dataset of annotated concrete images.</br>
+ - **Experiments:** Testing various NN's architectures and parameters.</br>
  - **Crack Segmentation:** The system can precisely segment cracks in concrete images.</br>
  
 ## Downloading data
@@ -39,15 +40,13 @@ If you skip these steps it can lead to errors during training process.
 
 # Experiments results
 The code is integrated with comet. All results of my experiments you can find under this link
-
 <a href="https://www.comet.com/my-projects/concrete-cracks-segmentation/view/new/panels">https://www.comet.com/my-projects/concrete-cracks-segmentation</a>
 
 # Next steps
 This project still requires a lot of work to be done in order to make it usable.
 
 ## Accuracy measurement
-Instead off error value from MSE we should measure accuracy in different (better) way. This metrics are going to be implemented
-- Intersection-Over-Union (IoU, Jaccard Index)
+Besides value from loss function we should measure model quality in different way. This metric is going to be implemented
 - Dice Coefficient (F1 Score)
 
 ## Clean dataset
@@ -55,10 +54,7 @@ As author of dataset claims, some of the datasets represent single cases of inco
 These issues have to be eliminated or taken with extra care by manually optimizing them when necessary.
 
 ## Improve the model architecture
-We will test different common known architectures for our task like ENet or U-net.
-
-## Detection
-After finished algorithm for segmentation I'm going to build second model to detect if crack is on image.
+i'm going to test different common known architectures for our task like ENet or U-net.
 
 # License
 
